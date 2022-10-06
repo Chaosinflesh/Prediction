@@ -1,0 +1,51 @@
+Major refactor: Can now specify different spell effects based on instant or cast, as well as delayed effects, and periodic|buff|debuff effects.
+Added functions AddRunes(x), UseRunes(x), OverrideGCD(time), SetInstant(), GetPeriod() and AddDelayedEffect(time, details) into userspace. AddDelayedEffect not actually functional yet though.
+Modified Rune recharging for DKs to understand limit of 3 at a time.
+
+7.3.5.201803121251:
+More work on recharge glitch, think I've fixed it properly this time.
+Fixed bug where a passive ability upgrade would overwrite the ability causing infinite predictions of that spell.
+Fixed bug where Mind Blast would have infinitely reducing cooldown after Voidform prediction.
+Known issue: Shadow priest Insanity prediction sometimes wrong because Mind Flay doesn't apply full Insanity until cast is completed.
+
+7.3.5.201802272233:
+Added Procced(chance) function for those who want to simulate the possibility of procs. Rudimentary implementation.
+Added some minor rotations in for a couple of low-level classes.
+Added infrastructure in for passive in-combat regen, but haven't put numbers in yet.
+Prevent deleting final ability from a RuleSet.
+Implemented Shadowform <===> Voidform transition, and Insanity decay for low levels.
+Added +/-spells to overlay options to add extra information to the overlay.
+Fixed bug where occasionally would add an extra charge to an ability during the latency window, however recharge abilities still occasionally glitch :(
+
+7.3.5.201802261138:
+Fixed bug where DB didn't exist (stupid error).
+
+7.3.5.201802261123:
+Moved parse errors from general print to status bar.
+Added restoration shaman default dps priorities and effects.
+Updated current ruleset to display class and specialization as well as ruleset.
+Made database upgrade only override default rulesets.
+Added RuleSet copy for QoL.
+
+
+
+        elseif Player.spec == "Shadow" then
+            -- Handle insanity, shadow doesn't really care about mana for dps
+            if Player.buffs['Voidform'] then
+                -- Initial entry into Voidform. This only matters if we're making predictions.
+                if Player.buffs['Voidform'].count == 1 and Player.buffs['Shadowform'] then
+                    Player.spells['Mind Blast'].baseCooldown = Player.spells['Mind Blast'].baseCooldown - 3
+                    Player.buffs['Shadowform'] = nil
+                end
+                -- Decay; this is a reasonable approximation.
+                Player.resources['Insanity'] = Player.resources['Insanity'] - timeDiff * Player.buffs['Voidform'].count
+                Player.haste = Player.haste + (timeDiff / 100) -- Have to convert to %
+                -- Exit Voidform
+                if Player.resources['Insanity'] <= 0 then
+                    Player.spells['Mind Blast'].baseCooldown = Player.spells['Mind Blast'].baseCooldown + 3
+                    Player.buffs['Voidform'] = nil
+                    Player.buffs['Shadowform'] = { count = 0, timeRemaining = 999, caster = 'player' }
+                end
+            end
+        end
+    end

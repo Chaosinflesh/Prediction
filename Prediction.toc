@@ -1,0 +1,34 @@
+## Interface: 70300
+## Title: Prediction
+## Notes: Rotation helper based on SimC
+## Author: Chosenfish
+## OptionalDeps: Ace3
+## X-Embeds: Ace3
+## X-License: UNLICENSE
+## X-Category: Combat
+## Version: 7.3.5.201803131200
+
+## SavedVariables: PredictionDB
+
+embeds.xml
+
+_Prediction.lua
+
+Overlay.lua
+Data.lua
+Timer.lua
+Spell.lua
+Target.lua
+Player.lua
+GUI.lua
+Config.lua
+Rules.lua
+UI_Rules.lua
+UI_BuffEffects.lua
+UI_RegenEffects.lua
+UI_SpellEffects.lua
+UI.lua
+Engine.lua
+Events.lua
+
+Prediction.lua
