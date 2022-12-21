@@ -31,7 +31,7 @@ function Pred.Target:GetAuraList(func, castByPlayer)
 
     -- Get all auras for the target
     local auras, i = { }, 1
-    local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('target', i)
+    local name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('target', i)
     while name do
         -- Only check for debuffs by the player
         if (castByPlayer and unitCaster == 'player') or not castByPlayer then
@@ -41,7 +41,7 @@ function Pred.Target:GetAuraList(func, castByPlayer)
             auras[name].caster = unitCaster
         end
         i = i + 1
-        name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('target', i)
+        name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('target', i)
     end
    
     return auras

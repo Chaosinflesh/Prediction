@@ -1,4 +1,4 @@
-## Interface: 70300
+## Interface: 100002
 ## Title: Prediction
 ## Notes: Rotation helper based on SimC
 ## Author: Chosenfish
@@ -6,7 +6,7 @@
 ## X-Embeds: Ace3
 ## X-License: UNLICENSE
 ## X-Category: Combat
-## Version: 7.3.5.201803131200
+## Version: 10.0.2v2022.12.21
 
 ## SavedVariables: PredictionDB
 

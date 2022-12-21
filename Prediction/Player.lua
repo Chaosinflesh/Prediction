@@ -80,14 +80,14 @@ function Pred.Player:GetAuraList(func)
 
     -- Get all auras for the target
     local auras, i = { }, 1
-    local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('player', i)
+    local name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('player', i)
     while name do
         auras[name] = {}
         auras[name].count = count
         auras[name].timeRemaining = expirationTime - Time.Now
         auras[name].caster = unitCaster
         i = i + 1
-        name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('player', i)
+        name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = func('player', i)
     end
     
     -- Check for totems
